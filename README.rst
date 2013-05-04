@@ -14,6 +14,7 @@ Example usage:
 or
 
 ::
+
     def proxy(data): # This also works with old/new proxy
         ...
 
