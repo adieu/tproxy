@@ -80,7 +80,7 @@ class ClientConnection(object):
             self.route.proxy_error(self, e)
 
     def do_proxy(self):
-        commands = self.route.proxy("".join(self.buf))
+        commands = self.route.proxy("".join(self.buf), self)
         if commands is None: # do nothing
             return 
 
