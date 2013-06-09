@@ -39,7 +39,6 @@ class Worker(ProxyServer):
                     ca_certs = cfg.ssl_ca_certs,
                     suppress_ragged_eofs=True,
                     do_handshake_on_connect=True)
-            self.ssl_enabled = True
 
         self.name = cfg.name
         self.age = age
@@ -59,8 +58,9 @@ class Worker(ProxyServer):
     def init_process(self):
         #gevent doesn't reinitialize dns for us after forking
         #here's the workaround
-        gevent.core.dns_shutdown(fail_requests=1)
-        gevent.core.dns_init()
+        if gevent.version_info[0] == 0:
+            gevent.core.dns_shutdown(fail_requests=1)
+            gevent.core.dns_init()
 
         util.set_owner_process(self.cfg.uid, self.cfg.gid)
 

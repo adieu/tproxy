@@ -20,7 +20,7 @@ import random
 import resource
 import socket
 
-from gevent.hub import fork
+from gevent import fork
 try:
     from setproctitle import setproctitle
     def _setproctitle(title):
