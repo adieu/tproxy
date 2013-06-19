@@ -5,6 +5,7 @@
 
 import io
 import logging
+from inspect import getargspec
 
 from .rewrite import RewriteProxy
 
@@ -30,9 +31,13 @@ class Route(object):
             self.proxy_connected = self.proxy_io
 
         self.log = logging.getLogger(__name__)
+        self.route_ex = ('client' in getargspec(self.script.proxy).args)
 
-    def proxy(self, data):
-        return self.script.proxy(data)
+    def proxy(self, data, client):
+        if self.route_ex:
+            return self.script.proxy(data, client)
+        else:
+            return self.script.proxy(data)
 
     def proxy_io(self, src, dest, buf=None, extra=None):
         while True:

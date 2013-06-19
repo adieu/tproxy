@@ -1,3 +1,24 @@
+Updated by ledzep2
+------------------
+
+Added one arugment "client" to custom proxy function while maintaining backward-compatibility.
+
+Example usage:
+
+::
+
+    def proxy(data, client = None): # This works with old/new tproxy
+        ip = client.addr # This provides the tuple of source address (ip, port)
+        ...
+
+or
+
+::
+
+    def proxy(data): # This also works with old/new proxy
+        ...
+
+
 tproxy
 ------
 
